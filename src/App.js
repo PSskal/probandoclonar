@@ -1,22 +1,27 @@
 import React from 'react';
-import { TodoCounter } from "./TodoCounter";
-import { TodoSearch } from './TodoSearh';
-import { TodoList } from "./TodoList.js";
-import { TodoItem } from "./TodoItem.js";
-import { TodoButtom } from "./TodoButtom.js";
+import { useLocalStorage } from "./hooks/LocalStorage.js";
+import { TodoCounter } from "./componets/TodoCounter";
+import { TodoSearch } from './componets/TodoSearh';
+import { TodoList } from "./componets/TodoList.js";
+import { TodoItem } from "./componets/TodoItem.js";
+import { TodoButtom } from "./componets/TodoButtom.js";
+import { Header } from "./componets/Header"
 
 
 
-const defaultodos = [
-  {text:'Cortar cebolla', completed:true},
-  {text:'Tormar el curso de intro a react', completed:true},
-  {text:'Llorar con la llorona', completed:false},
-  {text:'como esamos', completed:false}
-];
+// const defaultodos = [
+//   {text:'Drink 500 ml water', completed:true, time: 3},
+//   {text:'Tormar el curso de intro a react', completed:true, time: 4},
+//   {text:'Llorar con la llorona', completed:false, time:7},
+//   {text:'como esamos', completed:false, time:2},
+  
+// ];
 
 function App() {
 
-  const [todos, setTodos] = React.useState(defaultodos);
+
+
+  const [todos, saveTodos] = useLocalStorage('TODOS_v1', []);
   const [searchValue, setSearchaValue] = React.useState("");
 
   const completedTodos = todos.filter(todo => todo.completed===true).length;
@@ -33,12 +38,11 @@ function App() {
     })
   }
 
-  
   const completeTodo = (text) => {
     const todoIndex = todos.findIndex(todo => todo.text === text);
     const newTodos = [...todos];
     newTodos[todoIndex].completed = !newTodos[todoIndex].completed;
-    setTodos(newTodos);
+    saveTodos(newTodos);
   }
 
 
@@ -47,25 +51,27 @@ function App() {
 
     const newTodos = [...todos];
     newTodos.splice(todoIndex, 1);
-    setTodos(newTodos);
+    saveTodos(newTodos);
 
   }
 
   return (
     <div className='bg-gray-100 p-2'>
     <div className='border-solid border-2  border-indigo-600  rounded-[0.5rem] w-full mx-auto p-4 bg-white'>
-      
+      <Header/>
+      <TodoSearch searchValue={searchValue} setSearchValue={setSearchaValue}/>
       <TodoCounter
         total={totalTodos}
         completed={completedTodos}
       />
 
-      <TodoSearch searchValue={searchValue} setSearchValue={setSearchaValue}/>
+      
       <TodoList>
         {searchedTodos.map(todo => (
           <TodoItem 
            key={todo.text} 
            text={todo.text}
+           time={todo.time}
            completed={todo.completed}
            onCompleted={() => completeTodo(todo.text)}
            onDeleted={() => deleteTodo(todo.text)}
