@@ -3,7 +3,7 @@ import { Doughnut } from 'react-chartjs-2'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { TodoContext } from "../containers/TodoContext";
 
-function TodoCounter(){
+function TodoCounter(props){
 
   const {totalTodos, completedTodos} = React.useContext(TodoContext)
 
@@ -34,14 +34,16 @@ function TodoCounter(){
     
         <>
             <div className="w-6/12 h-6/12 mx-auto my-auto">
-                <p className="font-bold text-3xl translate-y-20 translate-x-10">{(completedTodos*100/totalTodos).toFixed()}%</p>
+                {
+                !(totalTodos===0) && 
+                <div><p className="font-bold text-3xl translate-y-20 translate-x-10">{(completedTodos*100/totalTodos).toFixed()}%</p>
                 <Doughnut className="-translate-y-6" data={data} options={options}/>
-                    
+                <h2 className="font-serif text-center  text-[#00a9e8] pt-2"> Has completado {completedTodos} de {totalTodos} ToDos </h2>
+                </div>
+                
+                }
+                  
             </div>
-            
-            
-            <h2 className="font-serif text-center  text-[#00a9e8]"> Has completado {completedTodos} de {totalTodos} ToDos </h2>
-
 
         </>
         
