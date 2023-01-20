@@ -1,8 +1,11 @@
 import React from "react";
 import { IoMdSearch } from "react-icons/io"
+import { TodoContext } from "../containers/TodoContext";
 
 
-function TodoSearch({searchValue, setSearchValue}){
+function TodoSearch(){
+
+    const {searchValue, setSearchValue} = React.useContext(TodoContext)
 
     const onSearchChangeValue = (event)=>{
         setSearchValue(event.target.value)
@@ -16,6 +19,7 @@ function TodoSearch({searchValue, setSearchValue}){
             className="bg-[#e3f0fc] rounded-[1rem] w-4/5 pl-[2.5rem] pr-8 p-1.5"
             placeholder="Search items"
             type="search"
+            value={searchValue}
             onChange={onSearchChangeValue}
                />
             
