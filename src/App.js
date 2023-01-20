@@ -14,6 +14,9 @@ import { Header } from "./componets/Header"
 //   {text:'Tormar el curso de intro a react', completed:true, time: 4},
 //   {text:'Llorar con la llorona', completed:false, time:7},
 //   {text:'como esamos', completed:false, time:2},
+//   {text:'como esamos', completed:false, time:2},
+//   {text:'como esamos', completed:false, time:2},
+//   {text:'como esamos', completed:false, time:2},
   
 // ];
 
@@ -21,7 +24,7 @@ function App() {
 
 
 
-  const [todos, saveTodos] = useLocalStorage('TODOS_v1', []);
+  const {item:todos, saveItem: saveTodos, loading, error,} = useLocalStorage('TODOS_V2', []);
   const [searchValue, setSearchaValue] = React.useState("");
 
   const completedTodos = todos.filter(todo => todo.completed===true).length;
@@ -57,7 +60,7 @@ function App() {
 
   return (
     <div className='bg-gray-100 p-2'>
-    <div className='border-solid border-2  border-indigo-600  rounded-[0.5rem] w-full mx-auto p-4 bg-white'>
+    <div className='border-solid border-2  border-indigo-600  rounded-[0.5rem] w-96  mx-auto p-4 bg-white'>
       <Header/>
       <TodoSearch searchValue={searchValue} setSearchValue={setSearchaValue}/>
       <TodoCounter
@@ -67,6 +70,9 @@ function App() {
 
       
       <TodoList>
+        {loading && <p>Estamos cargando....</p>}
+        {error && <p>hubo un errro</p>}
+        {(!loading && !searchedTodos.length) && <p>Crea tu primer todo</p>}
         {searchedTodos.map(todo => (
           <TodoItem 
            key={todo.text} 

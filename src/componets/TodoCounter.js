@@ -31,7 +31,7 @@ function TodoCounter({total, completed}){
     
         <>
             <div className="w-6/12 h-6/12 mx-auto my-auto">
-                <p className="font-bold text-3xl translate-y-20 translate-x-10">{(completed*100/total).toFixed(1)}%</p>
+                <p className="font-bold text-3xl translate-y-20 translate-x-10">{(completed*100/total).toFixed()}%</p>
                 <Doughnut className="-translate-y-6" data={data} options={options}/>
                     
             </div>
