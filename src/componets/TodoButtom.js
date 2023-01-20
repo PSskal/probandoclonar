@@ -14,10 +14,6 @@ function TodoButtom(props){
             <AiOutlinePlusCircle className="w-10 h-10 text-blue-600"/> 
         </button>
 
-        
-
-        
-        
     )
 }
 
