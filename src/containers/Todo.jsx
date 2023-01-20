@@ -7,15 +7,25 @@ import { TodoList } from "../componets/TodoList.js";
 import { TodoItem } from "../componets/TodoItem.js";
 import { TodoButtom } from "../componets/TodoButtom.js";
 import { Header } from "../componets/Header"
+import { Modal } from '../modal';
+import { AddModal } from '../componets/AddModal';
 
 
 function Todo() {
 
-  const {loading,error,searchedTodos,completeTodo,deleteTodo} = React.useContext(TodoContext) 
+  const {
+    loading,
+    error,
+    searchedTodos,
+    completeTodo,
+    deleteTodo,
+    openModal,
+    setOpenModal,
+  } = React.useContext(TodoContext) 
 
   return (
-    <div className='bg-gray-100 p-2'>
-    <div className='border-solid border-2  border-indigo-600  rounded-[0.5rem] w-96  mx-auto p-4 bg-white'>
+    <div className='bg-gray-100'>
+    <div className='border-solid border-2  border-gray-500  rounded-[0.5rem] w-96  mx-auto p-4 bg-white'>
       <Header/>
       <TodoSearch/> 
       {/* searchValue={searchValue} setSearchValue={setSearchaValue} */}
@@ -36,7 +46,14 @@ function Todo() {
        ))}
     
        </TodoList>
-      <TodoButtom/>
+
+       {!!openModal && (
+        <Modal>
+        <AddModal/>
+       </Modal>
+       )}
+
+      <TodoButtom setOpenModal={setOpenModal}/>
     </div>
     </div>
   );

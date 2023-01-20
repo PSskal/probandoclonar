@@ -19,7 +19,7 @@ function TodoItem(props){
             
             {/* tachado de texto "line-through" */}
             <p className={`mx-3 font-medium ${props.completed ? 'line-through' : 'no-underline'}`}>{ props.text}</p>
-            <p className="mx-3 italic font-light text-sm">{props.time} hr to goal - 9:00</p>
+            <p className="mx-3 italic font-light text-sm">{props.time} hr to goal</p>
 
         </div>
 
